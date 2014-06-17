@@ -269,7 +269,7 @@ i = 0 while( i < g_mods )
 
 		if scope_amp > 0.5
 		{
-		    pixi( halo, x, y, RED, 0.03, 0.03 )
+		    // pixi( halo, x, y, RED, 0.03, 0.03 )
 
 		    $t = scope_amp * 512
 		    if $t > 256 { $t = 256 }
@@ -282,12 +282,20 @@ i = 0 while( i < g_mods )
 			$xx = x * 256
 			$xc = $xx & 255
 			transp( ( $t * ( 255 - $xc ) ) >> 8 )
-			print( name, x, y - 1, RED, BOTTOM )
+			print( name, x, y - 1, col, BOTTOM )
                         // resize( halo, 16, 16 )
 			transp( ( $t * $xc ) >> 8 )
-			print( name, x + 1, y - 1, BLUE, BOTTOM )
+			print( name, x + 1, y - 1, col, BOTTOM )
                         // resize( halo, 128, 128 )
-			transp( 256 )
+
+                        pixi( name, x + 1, y - 1, col )
+                        t_translate( x, y, 0 )
+                        t_scale(2, 0.5, 0)
+                        t_rotate( -t / ( 100 + i * 2 ) - i, 0, 0, 1 )
+                        pixi( name, 0, 0, col, 1, 1 )
+                        t_reset()
+
+                        transp( 256 )
 			remove( name )
 		    }
 
@@ -298,6 +306,7 @@ i = 0 while( i < g_mods )
 
 		    t_reset()
     		    t_translate( x, y, 0 )
+                    t_scale(2, 0.5, 0)
 		    t_rotate( -t / ( 100 + i * 2 ) - i, 0, 0, 1 )
 		    pixi( halo2, 0, 0, col, 1, 1 )
 		    t_reset()
