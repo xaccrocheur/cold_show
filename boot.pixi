@@ -3,19 +3,8 @@ tracks_visual_gain = new( 32, 1, FLOAT )
 clean( tracks_visual_gain, 1 )
 tracks = 0
 cur_track = 0
-playlist[ tracks ] = "color_dreams.sunvox" tracks + 1
-playlist[ tracks ] = "voices_of_spring.sunvox" tracks + 1
-playlist[ tracks ] = "endless_fantasy.sunvox" tracks + 1
-playlist[ tracks ] = "six_steps.sunvox" tracks_visual_gain[ tracks ] = 1.2 tracks + 1
-playlist[ tracks ] = "sea_breeze.sunvox" tracks_visual_gain[ tracks ] = 2 tracks + 1
-playlist[ tracks ] = "music_of_the_rain.sunvox" tracks_visual_gain[ tracks ] = 0.9 tracks + 1
-playlist[ tracks ] = "eburg_after_the_rain.sunvox" tracks_visual_gain[ tracks ] = 1.1 tracks + 1
-playlist[ tracks ] = "siberian_beauty.sunvox" tracks + 1
-playlist[ tracks ] = "full_moon_night.sunvox" tracks + 1
-playlist[ tracks ] = "time_flow.sunvox" tracks + 1
-playlist[ tracks ] = "autumn.sunvox" tracks_visual_gain[ tracks ] = 2 tracks + 1
-playlist[ tracks ] = "tales.sunvox" tracks + 1
-playlist[ tracks ] = "lullaby.sunvox" tracks_visual_gain[ tracks ] = 1.1 tracks + 1
+playlist[ tracks ] = "day_patrol-kold.sunvox" tracks + 1
+playlist[ tracks ] = "Blackbird_Epiphany.sunvox" tracks + 1
 playlist[ tracks ] = -1
 
 SUNVOX_LIB_WIN32 = "data/lib/windows/lib_x86/sunvox.dll"
@@ -32,7 +21,7 @@ hxsize = xsize div 2
 hysize = ysize div 2
 
 font = load( "data/images/font.png" )
-if font >= 0 
+if font >= 0
 {
     set_font( 32, font, 16, 6 )
     char_xsize = get_xsize( font ) div 16
@@ -53,7 +42,7 @@ song_volume = 100
 fn load_track()
 {
     pause_mode = 0
-    ts = "" sprintf( ts, "%s/data/music/%s", CURRENT_PATH, playlist[ cur_track ] )
+    ts = "" sprintf( ts, "%s/songs/%s", CURRENT_PATH, playlist[ cur_track ] )
     dlcall( svl, sv_load, 0, c_string( ts ) )
     dlcall( svl, sv_play, 0 )
     song_cur_frame = 0
@@ -136,11 +125,11 @@ fn show_text()
  SPACE          - pause
  ESCAPE         - exit
  TAP THE SCREEN - show this text
- 
+
 Created in SunVox and Pixilang:
 warmplace.ru/soft/sunvox
 warmplace.ru/soft/pixilang
- 
+
 Please make a donation:
 warmplace.ru/donate"
 
@@ -177,12 +166,12 @@ warmplace.ru/donate"
     }
     ts = "" sprintf( ts,
 "
-Soul Resonance   %02d %s
+Cold Show   %02d %s
  ", cur_track + 1, song_name )
     print( ts, xx, yy, c, LEFT | BOTTOM )
     transp( 100 )
     print(
-"NightRadio:    #
+"Azer0:    #
                #
                #", xx, yy, c, LEFT | BOTTOM )
     transp( 256 )
@@ -236,14 +225,14 @@ if( ver >= 0 )
     start_timer( 0 )
     gfx_break = 0
     while( gfx_break == 0 )
-    {    
+    {
 	t = get_timer( 0 )
 	if main_init_flag == 0
 	{
 	    main_init()
 	    main_init_flag = 1
 	}
-        
+
     	if WINDOW_XSIZE >= xsize * 2 && WINDOW_YSIZE >= ysize * 2
     	{
     	    if zoom_scr == -1
@@ -259,14 +248,14 @@ if( ver >= 0 )
     		zoom_scr = -1
     	    }
         }
-	
+
 	include "data/sunvox_visual.pixi"
-	
+
 	show_text()
-	
-	while( get_event() ) 
+
+	while( get_event() )
 	{
-	    if EVT[ EVT_TYPE ] == EVT_BUTTONDOWN 
+	    if EVT[ EVT_TYPE ] == EVT_BUTTONDOWN
     	    {
     		key = EVT[ EVT_KEY ]
         	if key == KEY_UP || key == '=' { song_volume + 10 }
@@ -275,9 +264,9 @@ if( ver >= 0 )
         	if key == KEY_LEFT || key == ']' { cur_track - 1 if cur_track < 0 { cur_track + tracks } load_track() }
         	if key == KEY_ENTER { rewind_mode = 8 }
         	if key == ' ' { pause_mode ^ 1 }
-    	    } 
-    	    if EVT[ EVT_TYPE ] == EVT_MOUSEBUTTONDOWN 
-    	    { 
+    	    }
+    	    if EVT[ EVT_TYPE ] == EVT_MOUSEBUTTONDOWN
+    	    {
     		if show_descr == 0
     		{
     		    show_descr = 1
@@ -299,7 +288,7 @@ if( ver >= 0 )
 	            }
     		}
     	    }
-	    if EVT[ EVT_TYPE ] == EVT_QUIT { gfx_break = 1 } 
+	    if EVT[ EVT_TYPE ] == EVT_QUIT { gfx_break = 1 }
 	}
 
 	if rewind_mode >= 1 { rewind_mode - 1 }
@@ -310,14 +299,14 @@ if( ver >= 0 )
 	    cur_track % tracks
 	    load_track()
 	}
-	
+
 	if 0
 	{
 	    ts = ""
 	    sprintf( ts, "FPS:%u", FPS )
     	    print( ts, -get_xsize( scr ) / 2 + 8, -get_ysize( scr ) / 2 + 8, WHITE, TOP | LEFT )
     	}
-    	
+
     	if next_frame
         {
             tt = ( get_ticks() - frame_t ) & 0xFFFFFFFF
