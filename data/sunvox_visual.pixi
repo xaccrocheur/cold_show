@@ -184,6 +184,11 @@ i = 0 while( i < g_mods )
 		pixi( halo, 0, 0, col, h, h )
 		t_reset()
 
+		if scope_amp > 0.5
+                {
+                  fputs( "scope amp:\n" + scope_amp )
+                }
+
 		if scope_amp > 0.0001
 		{
 		    pixi( halo, x, y, WHITE, 0.03, 0.03 )
@@ -200,6 +205,7 @@ i = 0 while( i < g_mods )
 			$xc = $xx & 255
 			transp( ( $t * ( 255 - $xc ) ) >> 8 )
 			print( name, x, y - 1, col, BOTTOM )
+                        // resize( name, 32, 32 )
 			transp( ( $t * $xc ) >> 8 )
 			print( name, x + 1, y - 1, col, BOTTOM )
 			transp( 256 )
@@ -233,6 +239,7 @@ i = 0 while( i < g_mods )
 				{
 				    x2 = g_mod_x2[ i2 ]
 				    y2 = g_mod_y2[ i2 ]
+                                    // fputs( "plop\n" )
 
 				    transp( scope_amp * 270 )
 				    draw_line( x, y, x2, y2, col )
@@ -282,7 +289,9 @@ if scope >= 0
     	    y = yy - char_ysize * 1.5 - v / 2
     	    transp( ( (x+hxsize) * 64 ) / xsize )
     	    fbox( x, y, 1, v, c )
-    	    if x >= hxsize { i = 999999 }
+    	    if x >= hxsize {
+                i = 999999
+              }
     	    i + 1
         }
     }
@@ -290,3 +299,5 @@ if scope >= 0
 }
 
 }
+
+// fputs( "plop\n" )
