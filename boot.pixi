@@ -125,13 +125,7 @@ fn show_text()
  SPACE          - pause
  ESCAPE         - exit
  TAP THE SCREEN - show this text
-
-Created in SunVox and Pixilang:
-warmplace.ru/soft/sunvox
-warmplace.ru/soft/pixilang
-
-Please make a donation:
-warmplace.ru/donate"
+"
 
     transp( 256 )
     album_name_len = 14

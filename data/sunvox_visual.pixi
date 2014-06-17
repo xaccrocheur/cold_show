@@ -2,10 +2,10 @@ fn sunvox_visual_init()
 {
     t_matrix = new( 4, 4, FLOAT )
     t_p = new( 3, 1, FLOAT )
-        
+
     scope_offset = new( 1, 1, INT32 )
     scope_size = new( 1, 1, INT32 )
-    
+
     g_mod_x = new( 256, 1, INT16 )
     g_mod_y = new( 256, 1, INT16 )
     g_mod_z = new( 256, 1, INT16 )
@@ -16,7 +16,7 @@ fn sunvox_visual_init()
     g_mod_amp = new( 256, 1, FLOAT )
     g_mods = 0
     g_mods_track = -1
-    
+
     halo = load( "data/images/halo.png" )
     halo2 = load( "data/images/halo2.png" )
 
@@ -32,7 +32,7 @@ fn draw_antialiased_dot( $x, $y, $color )
     $yy = $y * 256
     $yc = $yy & 255
     $ycc = 255 - $yc
-    $tx1 = 255 - $xc 
+    $tx1 = 255 - $xc
     $tx2 = $xc
     transp( ( ( ( $tx1 * $ycc ) >> 8 ) * $t ) >> 8 )
     dot( $x, $y, $color )
@@ -81,10 +81,10 @@ transp( 256 )
 
 set_screen( sv_scr )
 
-//effector( EFF_HBLUR, xsize )
-//effector( EFF_VBLUR, ysize )
-//transp( 50 )
-//clear( BLACK )
+// effector( EFF_HBLUR, xsize )
+// effector( EFF_VBLUR, ysize )
+// transp( 50 )
+// clear( BLACK )
 pixi( bg_scr, 0, 0, WHITE, 2, 2 )
 
 transp( 256 )
@@ -99,7 +99,7 @@ if cur_track != g_mods_track
     {
 	flags = dlcall( svl, sv_get_module_flags, 0, i )
 	g_mod_flags[ g_mods ] = flags
-	if flags & SV_MODULE_FLAG_EXISTS 
+	if flags & SV_MODULE_FLAG_EXISTS
 	{
 	    col = dlcall( svl, sv_get_module_color, 0, i )
 	    col = get_color( col & 255, ( col >> 8 ) & 255, ( col >> 16 ) & 255 )
@@ -121,8 +121,8 @@ if cur_track != g_mods_track
 
 i = 0 while( i < g_mods )
 {
-    t_p[ 0 ] = g_mod_x[ i ] 
-    t_p[ 1 ] = g_mod_y[ i ] 
+    t_p[ 0 ] = g_mod_x[ i ]
+    t_p[ 1 ] = g_mod_y[ i ]
     t_p[ 2 ] = g_mod_z[ i ]
     t_point( t_p, t_matrix )
     g_mod_x2[ i ] = t_p[ 0 ]
@@ -138,12 +138,12 @@ i = 0 while( i < g_mods )
     y = g_mod_y2[ i ]
 
     if flags & SV_MODULE_FLAG_EXISTS
-    {	
+    {
 	scope_amp = 0
 	scope = dlcall( svl, sv_get_module_scope, 0, i, 0, scope_offset, scope_size )
 	if scope >= 0
 	{
-    	    if g_sv_stype == SV_STYPE_FLOAT32	
+    	    if g_sv_stype == SV_STYPE_FLOAT32
 	    {
 		offset = scope_offset[ 0 ]
 		size = scope_size[ 0 ]
@@ -159,7 +159,7 @@ i = 0 while( i < g_mods )
 		    if v > scope_amp { scope_amp = v }
 		    sp + sstep
 		}
-		if i == 0 
+		if i == 0
 		{
 		    transp( 256 )
 		    scope_amp / 2
@@ -168,7 +168,7 @@ i = 0 while( i < g_mods )
 		{
 		    scope_amp = 0
 		}
-		scope_amp * tracks_visual_gain[ cur_track ] 
+		scope_amp * tracks_visual_gain[ cur_track ]
 		if scope_amp < g_mod_amp[ i ]
 		{
 		    scope_amp = ( scope_amp + g_mod_amp[ i ] ) / 2
@@ -177,16 +177,16 @@ i = 0 while( i < g_mods )
 		transp( 256 )
 		h = scope_amp
 		if h > 0.6 { h = 0.6 }
-		
+
 		t_reset()
 		t_translate( x, y, 0 )
 		t_rotate( t / 50 + i, 0, 0, 1 )
 		pixi( halo, 0, 0, col, h, h )
 		t_reset()
-		
-		if scope_amp > 0.0001 
+
+		if scope_amp > 0.0001
 		{
-		    pixi( halo, x, y, WHITE, 0.03, 0.03 ) 
+		    pixi( halo, x, y, WHITE, 0.03, 0.03 )
 
 		    $t = scope_amp * 512
 		    if $t > 256 { $t = 256 }
@@ -194,7 +194,7 @@ i = 0 while( i < g_mods )
 		    pixi( halo, x, y, col, scope_amp * 5, scope_amp / 32 )
 
 		    name = dlcall( svl, sv_get_module_name, 0, i )
-		    if name >= 0 
+		    if name >= 0
 		    {
 			$xx = x * 256
 			$xc = $xx & 255
@@ -210,13 +210,13 @@ i = 0 while( i < g_mods )
 		    $t / 8
 		    if $t > 64 { $t = 64 }
 		    transp( $t )
-		
+
 		    t_reset()
     		    t_translate( x, y, 0 )
 		    t_rotate( -t / ( 100 + i * 2 ) - i, 0, 0, 1 )
 		    pixi( halo2, 0, 0, col, 1, 1 )
 		    t_reset()
-		    
+
 		    //Links:
 		    links_num = ( flags & SV_MODULE_OUTPUTS_MASK ) >> SV_MODULE_OUTPUTS_OFF
 		    if links_num > 0 && scope_amp > 0.0001
@@ -233,7 +233,7 @@ i = 0 while( i < g_mods )
 				{
 				    x2 = g_mod_x2[ i2 ]
 				    y2 = g_mod_y2[ i2 ]
-			
+
 				    transp( scope_amp * 270 )
 				    draw_line( x, y, x2, y2, col )
 				    transp( 256 )
@@ -242,13 +242,13 @@ i = 0 while( i < g_mods )
 			    }
 			    remove( links )
 			}
-		    } 
+		    }
 
 		}
 	    }
 	    remove( scope )
 	}
-    }	
+    }
     i + 1
 }
 
@@ -259,13 +259,13 @@ copy( scr, sv_scr )
 // Bottom scope:
 //
 
-if 0 
+if 0
 {
 
 scope = dlcall( svl, sv_get_module_scope, 0, 0, 0, scope_offset, scope_size )
 if scope >= 0
 {
-    if g_sv_stype == SV_STYPE_FLOAT32	
+    if g_sv_stype == SV_STYPE_FLOAT32
     {
 	transp( 32 )
 	offset = scope_offset[ 0 ]
