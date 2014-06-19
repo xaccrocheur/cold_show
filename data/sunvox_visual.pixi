@@ -203,71 +203,7 @@ i = 0 while( i < g_mods )
 
                 // }
 
-		if scope_amp > 0.0001
-		{
-		    pixi( halo, x, y, WHITE, 0.03, 0.03 )
-
-		    $t = scope_amp * 512
-		    if $t > 256 { $t = 256 }
-		    transp( $t  - 180 )
-		    pixi( halo, x, y, col, scope_amp * 5, scope_amp / 32 )
-
-		    name = dlcall( svl, sv_get_module_name, 0, i )
-		    if name >= 0
-		    {
-			$xx = x * 256
-			$xc = $xx & 255
-			transp( ( $t * ( 255 - $xc ) ) >> 8 )
-			print( name, x, y - 1, col, BOTTOM )
-                        // resize( name, 32, 32 )
-			transp( ( $t * $xc ) >> 8 )
-			print( name, x + 1, y - 1, col, BOTTOM )
-			transp( 256 )
-			remove( name )
-		    }
-
-		    $t = scope_amp * 512 - 200
-		    $t / 8
-		    if $t > 64 { $t = 64 }
-		    transp( $t )
-
-		    t_reset()
-    		    t_translate( x, y, 0 )
-		    t_rotate( -t / ( 100 + i * 2 ) - i, 0, 0, 1 )
-		    pixi( halo2, 0, 0, col, 1, 1 )
-		    t_reset()
-
-		    //Links:
-		    links_num = ( flags & SV_MODULE_OUTPUTS_MASK ) >> SV_MODULE_OUTPUTS_OFF
-		    if links_num > 0 && scope_amp > 0.0001
-		    {
-			links = dlcall( svl, sv_get_module_outputs, 0, i )
-			if links >= 0
-			{
-			    resize( links, links_num, 1, INT32 ) //Make 32bit array
-			    l = 0 while( l < links_num )
-			    {
-				i2 = links[ l ]
-				flags2 = g_mod_flags[ i2 ]
-				if flags2 & SV_MODULE_FLAG_EXISTS
-				{
-				    x2 = g_mod_x2[ i2 ]
-				    y2 = g_mod_y2[ i2 ]
-                                    // fputs( "plop\n" )
-
-				    transp( scope_amp * 270 )
-				    draw_line( x, y, x2, y2, col )
-				    transp( 256 )
-				}
-				l + 1
-			    }
-			    remove( links )
-			}
-		    }
-
-		}
-
-		if scope_amp > 0.5
+		if scope_amp > 0.2
 		{
 		    // pixi( halo, x, y, RED, 0.03, 0.03 )
 
@@ -283,17 +219,9 @@ i = 0 while( i < g_mods )
 			$xc = $xx & 255
 			transp( ( $t * ( 255 - $xc ) ) >> 8 )
 			print( name, x, y - 1, col, BOTTOM )
-                        // resize( halo, 16, 16 )
 			transp( ( $t * $xc ) >> 8 )
 			print( name, x + 1, y - 1, col, BOTTOM )
                         // resize( halo, 128, 128 )
-
-                        pixi( name, x + 1, y - 1, col )
-                        t_translate( x, y, 0 )
-                        t_scale(2, 0.5, 0)
-                        t_rotate( -t / ( 100 + i * 2 ) - i, 0, 0, 1 )
-                        pixi( name, 0, 0, col, 1, 1 )
-                        t_reset()
 
                         transp( 256 )
 			remove( name )
@@ -306,7 +234,6 @@ i = 0 while( i < g_mods )
 
 		    t_reset()
     		    t_translate( x, y, 0 )
-                    t_scale(2, 0.5, 0)
 		    t_rotate( -t / ( 100 + i * 2 ) - i, 0, 0, 1 )
 		    pixi( halo2, 0, 0, col, 1, 1 )
 		    t_reset()
