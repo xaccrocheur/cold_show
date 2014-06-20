@@ -1,3 +1,5 @@
+// This is a comment
+
 playlist = new( 32, 1, INT )
 tracks_visual_gain = new( 32, 1, FLOAT )
 clean( tracks_visual_gain, 1 )
@@ -20,7 +22,7 @@ ysize = get_ysize( scr )
 hxsize = xsize div 2
 hysize = ysize div 2
 
-font = load( "data/images/font.png" )
+font = load( "data/images/font2.png" )
 if font >= 0
 {
     set_font( 32, font, 16, 6 )
@@ -28,9 +30,6 @@ if font >= 0
     char_ysize = get_ysize( font ) div 6
     set_key_color( font, BLACK )
 }
-
-font2 = load("data/images/font2.png")
-
 
 fn c_string( $str )
 {
@@ -156,7 +155,7 @@ fn show_text()
         	show_descr = 0
             }
 	}
-        yy - ( descr_ysize * $t ) / DESCR_T1
+        yy - (descr_ysize * $t) / DESCR_T1
         //transp( ( $t * 128 ) / DESCR_T1 )
         //clear( BLACK )
         //transp( 256 )
@@ -173,7 +172,7 @@ Cold Show   %02d %s
                #", xx, yy, c, LEFT | BOTTOM )
     transp( 256 )
     fbox( xx, yy - char_ysize, ( album_name_len * char_xsize * cur ) / len, char_ysize - 1, c )
-    print( descr_text, xx, yy + char_ysize, YELLOW, LEFT | TOP )
+    print( descr_text, xx, 10, YELLOW, LEFT | TOP )
 
     if prev_volume != song_volume
     {
