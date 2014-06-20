@@ -14,7 +14,7 @@ SUNVOX_LIB_OSX_X86_64 = "data/lib/osx/lib_x86_64/sunvox.dylib"
 include "data/sunvox.pixi"
 
 scr = get_screen()
-resize(scr, 1024, 768)
+resize(scr, 1300, 975)
 xsize = get_xsize(scr)
 ysize = get_ysize(scr)
 hxsize = xsize div 2
