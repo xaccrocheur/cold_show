@@ -18,7 +18,7 @@ fn sunvox_visual_init()
     g_mods_track = -1
 
     halo = load( "data/images/halo.png" )
-    halo2 = load( "data/images/halo2.png" )
+    halo2 = load( "data/images/dod.png" )
 
     bg_scr = new( xsize div 2, ysize div 2, PIXEL )
     sv_scr = new( xsize, ysize, PIXEL )
@@ -47,7 +47,7 @@ fn draw_antialiased_dot( $x, $y, $color )
 
 fn draw_line( $x1, $y1, $x2, $y2, $color )
 {
-    $dots = 125
+    $dots = 70
     $dx = ( $x2 - $x1 ) / $dots
     $dy = ( $y2 - $y1 ) / $dots
     $x = $x1 + $dx * ( t % 1000 ) / 1000
@@ -179,19 +179,20 @@ i = 0 while( i < g_mods )
 		if h > 0.6 { h = 0.6 }
 
 		t_reset()
-		t_translate( x, y, 0 )
-		t_rotate( t / 50 + i, 0, 0, 1 )
-		pixi( halo, 0, 0, col, h, h )
+		t_translate(x, y, 0)
+		t_rotate(t / 50 + i, 0, 0, 1)
+		pixi(halo, 0, 0, col, h, h)
 		t_reset()
 
 		if scope_amp > 0.0001
 		{
-		    pixi( halo, x, y, WHITE, 0.03, 0.03 )
+		    // pixi( halo, x, y, WHITE, 0.03, 0.03 )
 
 		    $t = scope_amp * 512
 		    if $t > 256 { $t = 256 }
 		    transp( $t  - 180 )
-		    pixi( halo, x, y, col, scope_amp * 5, scope_amp / 32 )
+		    pixi(halo, x, y, col, scope_amp * 2, scope_amp / 64)
+		    pixi(halo, x, y, col, scope_amp / 64, scope_amp / 2)
 
 		    name = dlcall( svl, sv_get_module_name, 0, i )
 		    if name >= 0

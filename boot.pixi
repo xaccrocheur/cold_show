@@ -15,7 +15,7 @@ SUNVOX_LIB_OSX_X86_64 = "data/lib/osx/lib_x86_64/sunvox.dylib"
 include "data/sunvox.pixi"
 
 scr = get_screen()
-resize(scr, 600, 400)
+resize(scr, 600, 500)
 xsize = get_xsize(scr)
 ysize = get_ysize(scr)
 hxsize = xsize div 2
@@ -118,7 +118,7 @@ fn main_init()
 
 fn show_text()
 {
-    descr_ysize = char_ysize * 17
+    descr_ysize = char_ysize * 10
     descr_text = "Control keys:
  LEFT or [      - previous track
  RIGHT or ]     - next track
@@ -131,7 +131,7 @@ fn show_text()
 "
 
     transp(256)
-    album_name_len = 9
+    album_name_len = 16
     c = #FFFFFF
     len = song_frames div 44100
     cur = song_cur_frame div 44100
@@ -163,14 +163,14 @@ fn show_text()
     }
     ts = "" sprintf(ts,
 "
-Cold Show   %02d %s
+Animal Panoptics   %02d %s
  ", cur_track + 1, song_name)
     print(ts, xx, yy, c, LEFT | BOTTOM)
     transp(100)
     print(
-"Azer0:    #
-          #
-          #", xx, yy, c, LEFT | BOTTOM)
+"Azer0:           #
+                 #
+                 #", xx, yy, c, LEFT | BOTTOM)
     transp(256)
     fbox(xx, yy - char_ysize, (album_name_len * char_xsize * cur) / len, char_ysize - 1, c)
     print(descr_text, xx, yy + char_ysize, YELLOW, LEFT | TOP)
