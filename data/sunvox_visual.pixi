@@ -184,33 +184,14 @@ i = 0 while( i < g_mods )
 		pixi( halo, 0, 0, col, h, h )
 		t_reset()
 
-		// if scope_amp > 0.5
-                // {
-		//     myname = dlcall( svl, sv_get_module_name, 0, i )
-		//     if myname >= 0
-		//     {
-                //       fputs("scope amp:\n")
-		// 	$xx = x + 5 * 256
-		// 	$xc = $xx & 255
-		// 	// transp( ( $t * ( 255 - $xc ) ) >> 8 )
-		// 	print( myname, x, y - 1, RED, BOTTOM )
-                //         // resize( myname, 32, 32 )
-		// 	// transp( ( $t * $xc ) >> 8 )
-		// 	print( myname, x + 100, y - 100, RED, BOTTOM )
-		// 	transp( 25 )
-		// 	remove( myname )
-                //     }
-
-                // }
-
 		if scope_amp > 0.2
 		{
-		    // pixi( halo, x, y, RED, 0.03, 0.03 )
+		    pixi(halo, x, y, RED, 0.5, 0.5)
 
 		    $t = scope_amp * 512
 		    if $t > 256 { $t = 256 }
 		    transp( $t  - 180 )
-		    pixi( halo, x, y, col, scope_amp * 5, scope_amp / 32 )
+		    // pixi( halo, x, y, col, scope_amp * 2, scope_amp / 64 )
 
 		    name = dlcall( svl, sv_get_module_name, 0, i )
 		    if name >= 0
@@ -235,7 +216,7 @@ i = 0 while( i < g_mods )
 		    t_reset()
     		    t_translate( x, y, 0 )
 		    t_rotate( -t / ( 100 + i * 2 ) - i, 0, 0, 1 )
-		    pixi( halo2, 0, 0, col, 1, 1 )
+		    // pixi( halo2, 0, 0, col, 1, 1 )
 		    t_reset()
 
 		    //Links:
