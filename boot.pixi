@@ -29,6 +29,9 @@ if font >= 0
     set_key_color( font, BLACK )
 }
 
+font2 = load("data/images/font2.png")
+
+
 fn c_string( $str )
 {
     $slen = strlen( $str )
