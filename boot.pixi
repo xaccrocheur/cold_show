@@ -3,6 +3,7 @@ tracks_visual_gain = new(32, 1, FLOAT)
 clean(tracks_visual_gain, 1)
 tracks = 0
 cur_track = 0
+playlist[ tracks ] = "Elective_fools.sunvox" tracks + 1
 playlist[ tracks ] = "day_patrol-kold.sunvox" tracks + 1
 playlist[ tracks ] = "Blackbird_Epiphany.sunvox" tracks + 1
 playlist[ tracks ] = -1
@@ -14,7 +15,7 @@ SUNVOX_LIB_OSX_X86_64 = "data/lib/osx/lib_x86_64/sunvox.dylib"
 include "data/sunvox.pixi"
 
 scr = get_screen()
-resize(scr, 1300, 975)
+resize(scr, 600, 400)
 xsize = get_xsize(scr)
 ysize = get_ysize(scr)
 hxsize = xsize div 2
@@ -29,8 +30,7 @@ if font >= 0
     set_key_color(font, BLACK)
 }
 
-font2 = load("data/images/font2.png")
-
+// font2 = load("data/images/font2.png")
 
 fn c_string($str)
 {
@@ -131,7 +131,7 @@ fn show_text()
 "
 
     transp(256)
-    album_name_len = 14
+    album_name_len = 9
     c = #FFFFFF
     len = song_frames div 44100
     cur = song_cur_frame div 44100
@@ -169,8 +169,8 @@ Cold Show   %02d %s
     transp(100)
     print(
 "Azer0:    #
-               #
-               #", xx, yy, c, LEFT | BOTTOM)
+          #
+          #", xx, yy, c, LEFT | BOTTOM)
     transp(256)
     fbox(xx, yy - char_ysize, (album_name_len * char_xsize * cur) / len, char_ysize - 1, c)
     print(descr_text, xx, yy + char_ysize, YELLOW, LEFT | TOP)

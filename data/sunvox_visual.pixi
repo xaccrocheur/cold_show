@@ -47,7 +47,7 @@ fn draw_antialiased_dot( $x, $y, $color )
 
 fn draw_line( $x1, $y1, $x2, $y2, $color )
 {
-    $dots = 20
+    $dots = 125
     $dx = ( $x2 - $x1 ) / $dots
     $dy = ( $y2 - $y1 ) / $dots
     $x = $x1 + $dx * ( t % 1000 ) / 1000
@@ -81,10 +81,10 @@ transp( 256 )
 
 set_screen( sv_scr )
 
-// effector( EFF_HBLUR, xsize )
-// effector( EFF_VBLUR, ysize )
-// transp( 50 )
-// clear( BLACK )
+//effector( EFF_HBLUR, xsize )
+//effector( EFF_VBLUR, ysize )
+//transp( 50 )
+//clear( BLACK )
 pixi( bg_scr, 0, 0, WHITE, 2, 2 )
 
 transp( 256 )
@@ -184,14 +184,14 @@ i = 0 while( i < g_mods )
 		pixi( halo, 0, 0, col, h, h )
 		t_reset()
 
-		if scope_amp > 0.2
+		if scope_amp > 0.0001
 		{
-		    pixi(halo, x, y, RED, 0.5, 0.5)
+		    pixi( halo, x, y, WHITE, 0.03, 0.03 )
 
 		    $t = scope_amp * 512
 		    if $t > 256 { $t = 256 }
-		    transp($t  - 180)
-		    // pixi( halo, x, y, col, scope_amp * 2, scope_amp / 64 )
+		    transp( $t  - 180 )
+		    pixi( halo, x, y, col, scope_amp * 5, scope_amp / 32 )
 
 		    name = dlcall( svl, sv_get_module_name, 0, i )
 		    if name >= 0
@@ -202,21 +202,19 @@ i = 0 while( i < g_mods )
 			print( name, x, y - 1, col, BOTTOM )
 			transp( ( $t * $xc ) >> 8 )
 			print( name, x + 1, y - 1, col, BOTTOM )
-                        // resize( halo, 128, 128 )
-
-                        transp( 256 )
+			transp( 256 )
 			remove( name )
 		    }
 
 		    $t = scope_amp * 512 - 200
 		    $t / 8
 		    if $t > 64 { $t = 64 }
-		    // transp( $t )
+		    transp( $t )
 
 		    t_reset()
     		    t_translate( x, y, 0 )
 		    t_rotate( -t / ( 100 + i * 2 ) - i, 0, 0, 1 )
-		    // pixi( halo2, 0, 0, col, 1, 1 )
+		    pixi( halo2, 0, 0, col, 1, 1 )
 		    t_reset()
 
 		    //Links:
@@ -235,7 +233,6 @@ i = 0 while( i < g_mods )
 				{
 				    x2 = g_mod_x2[ i2 ]
 				    y2 = g_mod_y2[ i2 ]
-                                    // fputs( "plop\n" )
 
 				    transp( scope_amp * 270 )
 				    draw_line( x, y, x2, y2, col )
@@ -285,9 +282,7 @@ if scope >= 0
     	    y = yy - char_ysize * 1.5 - v / 2
     	    transp( ( (x+hxsize) * 64 ) / xsize )
     	    fbox( x, y, 1, v, c )
-    	    if x >= hxsize {
-                i = 999999
-              }
+    	    if x >= hxsize { i = 999999 }
     	    i + 1
         }
     }
@@ -295,5 +290,3 @@ if scope >= 0
 }
 
 }
-
-// fputs( "plop\n" )
