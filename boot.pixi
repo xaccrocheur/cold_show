@@ -4,6 +4,7 @@ clean(tracks_visual_gain, 1)
 tracks = 0
 cur_track = 0
 playlist[ tracks ] = "Elective_fools.sunvox" tracks + 1
+playlist[ tracks ] = "nanokey.sunvox" tracks + 1
 playlist[ tracks ] = "day_patrol-kold.sunvox" tracks + 1
 playlist[ tracks ] = "Blackbird_Epiphany.sunvox" tracks + 1
 playlist[ tracks ] = -1
